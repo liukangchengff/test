@@ -1,0 +1,504 @@
+1.css3选择器
+
+是li并且是第一个子元素*/
+li:nth-child(1)          li: first-child
+是li并且是倒过来数的第一个子元素(最后一个元素)*/
+li:nth-last-child(1)    li:  last-child
+是li并且是唯一的子元素*/
+			/* li:only-child
+
+type
+/*是li并且是li里面的第一个                     
+			    li:nth-of-type(1)     /*li:first-of-type
+/*是li并且是li里面的最后一个
+			     li:nth-last-of-type(1)    /*li:last-of-type
+/*是li并且是li里面的唯一一个
+		              li:only-of-type
+
+2.表单相关的选择器           
+ [type="checkbox"]{}        是属性类型type为checkbox的那个input
+ [checked][type="checkbox"]     并且的意思。两个都同时满足的那个input
+
+/*勾选的input*/  input:checked{}
+
+/*禁用的input*/  input:disabled{}
+
+/*可用的input*/   input:enabled{}
+
+/*只读的input*/   input:read-only{}    带checked属性的input
+
+3.文字选择器
+
+div:first-line{}  第一行
+
+div:first-letter{}  第一个字母
+
+div::selection{}    选中的区域 
+
+4.伪元素
+
+/*after和before是伪元素，不是伪类*/
+  ul::after        ul::before{
+display:block;
+content:'';
+position:absolute;
+height:300px
+width:50px
+left:125px;
+}
+5.文字阴影
+text-shadow: 0 0 10px red;  文字阴影  第一个参数x y 水平偏移和垂直偏移    10px 是模糊度 
+
+box-shadow: 5px 5px 5px gray    边框阴影 3参数
+
+box-shadow:inset 0 0 0 10px gray;       inset内阴影  10px 扩展大小   4个参数
+
+6.多层阴影（彩虹的做法） 写在样式里面
+
+box-shadow: 
+					inset 0 0 0 10px red,
+					inset 0 0 0 20px orange,
+					inset 0 0 0 30px yellow,
+					inset 0 0 0 40px limegreen,
+					inset 0 0 0 50px cyan,
+					inset 0 0 0 60px dodgerblue,
+					inset 0 0 0 70px purple;
+
+7.背景相关
+
+background-size:（）；    括号里面可以填         （100%，200px，200px；cover；contain）
+
+background-clip:content-box           默认在content区域显示图片
+
+8.怪异盒子模型
+
+怪异盒模型 -> width和height就不再是内容的宽,而是+上padding和border的宽*/                样式里面加了这个的话 box-sizing: border-box;
+
+8.动态值的计算
+				
+9.弹性盒子模型（用了这个可以不用浮动了）
+
+父元素=容器  子元素=项目
+
+display: flex;盒模型的声明（需要写在父元素样式的里面）---------------------------------------》》》》
+
+flex-direction: row 主轴x （默认的）
+
+flex-direction: column  这样主轴就是垂直方向了  写在父元素
+
+justify-content: ;    主轴方向上的排列方式     写在父元素
+
+align-items: ;        侧轴方向上的排列方式   写在父元素
+
+flex-wrap: wrap        是否允许换行（尺寸不够的时候）
+
+align-content:space-between;  换行之后在另一个方向上的排布方式（侧轴）
+
+flex-flow:row wrap     复合写法   
+
+order -> 数字越小越靠前
+
+flex-grow:；      剩余的宽按比例平分      默认值是0
+
+flex-shrink：；   不够的宽大家按比例平分  默认值是1
+
+flex-basis: 0; 基线的意思
+
+align-self: ; 让项目有自己的排列方式    注意是主轴方向上的排列
+
+flex-grow和flex-shrink和flex-basis的复合写法 --------------->>>>   flex:1 0 100px
+
+10,样式转圈圈
+
+-webkit-animation:move 8s linear infinite;写在选择器里面   
+@-webkit-keyframes move{
+				0%{left:0;top:0}
+				25%{left:400px;top:0}
+				50%{left:400px;top:400px}
+				75%{left:0;top:400px}
+				100%{left:0;top:0}
+			}      不写在选择器里面
+
+11.过度
+transition:all 2s 5s linear    (变化的样式 持续的时间 延迟的时间 匀速运动)
+
+12.动画
+
+animation:abc 10s 2s linear infinite;	写在选择器里面
+@keyframes abc{
+				from{-webkit-transform: rotate(0);}
+				to{-webkit-transform: rotate(360deg);}
+			}   不写在选择器里面 （div转圈圈）    角度的问题；
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+jq 复习
+jq是封装的js JQ 也是js
+
+JQ是也DOM为基础的  DOM也就是获取页面中的元素 进行增删查改
+
+3.1.获取元素---》通过选择器获取
+3.2 修改样式,内容,属性,添加事件,设置动画(效果)
+
+  $('div') -> 返回一个类数组.(一个jq对象)
+		
+为什么不是标签不能设置style.background.因为$('div')不属于标签类,因此不能使用style属性
+$('div').style.background = 'red';错误的   正确$('div).css('background','red');
+		
+如果选择器匹配不了元素,不是返回null,而是返回一个length为0的空数组
+	
+jq判断一个元素是否存在          if($('#abc').length != 0).
+		
+ 匹配一个元素,返回一个length是1的类数组   //$('body')
+		
+//jq支持任何选择器//$('[abc]').css('background','red');		//$('body>[abc]').css('background','red');  //$('body>[abc]:nth-child(1)').css('background','red');
+
+4 jq 特有的选择器   两个ul  背景是红色
+ 
+$('li:first-child').css         表示是第一个子元素必须是li   两个1都变红、
+
+$('li:first-of-type').css       兄弟li里面的第一个        两个1都变红
+
+$('li:first').css               所有li里面的第一个     第一个li里的1变红
+
+ $('ul:first-child>li:first').css           是ul并且是第一个子元素的元素的li子元素的第一个      第一个li 1变红
+
+$('li:even').css   偶数  两个ul里的偶数都变红     $('li:odd').css  奇数 两个ul里的奇数都会变红
+
+$('li:gt(2)').css  下标大于2的变红  （下标是从第一个li计算的 第二个ul里面的li起始位置不是0）     $('li:eq(2)').css     下标等于2的    $('li:lt(2)').css   下小于标2的
+
+$('li:has(span)').css  li里面还有span元素标签的 
+
+隐藏的li.(display是none的li)   $('li:hidden').css('background','red');
+
+可见的li.(display是block的li)  $('li:visible').css('background','red');
+
+input:checked    css3中input被勾选的     [type='checkbox']:checked  css3选中被勾选的checkbox -------》》
+
+jq选中被勾选的checkbox			:checkbox:checked
+
+选中内容中有包含3字符的li  	$('li:contains(3)')
+
+选中没有任何子节点的li. 	$('li:empty').css   li中没有内容的（mei内容就是没有节点）
+
+选中有任何子节点的li.         $('li:parent').css    相反
+
+5.操作样式
+5.1 jq设置的样式设置的是行间样式,获取只能获取最终样式.
+		
+	链式调用 ：  $('div').css('background','red');
+
+
+5.2 同时设置多个样式（传对象的方法）
+	$('div').css({
+			'background':'red',
+			'width':'100px',
+		        'height':'100px'
+  	           })
+
+5.3  jq的设置和获取都是同一个方法。获取总会比设置少一个参数。    获取样式获取的是最终样式。	
+                alert($('div').css('backgroundColor'))
+
+
+6. 操作内容
+对应原生js的innerText
+		$('div').text(1111);
+对应原生js的innerHTML
+		$('div').html('<p>pppppppppp</p>');
+
+7.操作属性
+
+setAttribute设置字符串属性,永远设置行间属性。 
+
+对应原生js的.
+	$('div').prop('id','wrap');
+
+对应原生js的setAttribute
+	$('div').attr('id','wrap');
+
+(注意****)修改checked属性应该用prop。 因为用attr的话 true或者false 就变成字符串不是布尔值了
+$(':checkbox').prop('checked',true);
+
+$('div').attr('style','background:red;width:100px;height:100px');     因为style也是属性 所以可以修改
+
+8.获取value的属性
+8.1标签是标签,对象是对象,标签的属性是标签的属性,对象的属性是对象的属性 	8.2 js是通过控制对象来间接控制标签的。
+
+获取value属性不能用attr，除非目的就是获取行间的属性 
+ 
+
+获取value属性  $('input').prop('value')  $('input').val();
+
+设置value属性   $('input').val('阿斯顿发送到发送到发是');
+
+9.添加时间
+9.0  通过    eq(下标)
+	$('li').eq(0).click(function(){
+	       alert(100)
+  	                            });
+9.1 可以批量加事件
+
+$()选中的元素可以批量加事件,不用循环.
+		$('li').click(function(){
+			alert(100)
+		});
+9.2 可以批量设置样式
+
+$('li').css('background','red');
+
+10 jq对象和原生对象的转换
+
+jq中this是原生对象 所以能用style 不能用css方法
+
+把原生对象放在$（this） 里  这样this 就变成了jq对象了 则能使用css方法了 ，
+
+10.1 通过下标              $('li')[0] -> 通过加[下标]来讲jq对象转换为原生对象
+10.2 通过get方法           $('li').get(0) -> 返回原生对象.
+
+
+11.偏移和滚动距离       （ 注意只能获取不能设置）-----------------》》
+
+获取左偏移 var l = $('#div').offset().left;
+
+获取上便宜 var l = $('#div').offset().top;
+
+获取子元素和父元素之间的左偏移.(不识别当前元素的margin)       var l = $('#div').position().left;//0	
+	
+这种方法能识别margin但是不灵  也不推荐使用	var l = $('div>div:eq(1)').position().left;//400
+
+获取竖向滚动条滚动的距离. document.documentElement.scrollTop;  jq设置滚动  $('document').srcollTop();
+
+获取竖向滚动条滚动的距离  document.documentElement.scrollTop = 0; jq设置滚动  $('document').srcollTop(0);
+
+12.尺寸
+$('div').width() 内容的宽
+
+$('div').innerWidth() width+padding的宽
+
+$('div').outerWidth()  width+padding+boeder的宽
+ 
+13.查找兄弟元素          eq（）是从索引0开始的---------------------------》》》
+oLi.previousElementSibing  原声的上一个兄弟
+oLi.nextElementSibing      原生的下一个兄弟
+
+$('li:eq(2)').prev().css  前一个兄弟
+
+$('li:eq(2)').prevAll().css  前面所有的兄弟
+
+$('li:eq(2)').next()   下一个兄弟
+
+$('li:eq(2)').nextAll() 下面所有的兄弟
+
+$('li:eq(2)').siblings().css  所有的兄弟
+
+$('li:eq(2)').nextAll().slice(0,4).css  从第3个兄弟开始后面的3个兄弟   slice爆头不包围
+
+$('li:eq(2)').nextUntil('#li8').css      第三个li后面直到#li8之前的兄弟元素    区别一个参数  之间是不是li都会变色
+
+$('li:eq(2)').nextUntil('#li8','li').css  第三个li后面直到#li8之前的兄弟元素的li元素  区别两个参数   之间必须是li才会变色
+
+14.查找夫元素
+
+$('a').parent().parent().css   查找父元素
+
+$('a').parents().eq(1).css            这里的parents加了s  意思先找到a的所以父亲 组曾往上找  然后找到第二个父亲
+
+$('a').closest('ul').css            找最近的ul        如果找最近的a  则会找到自己 
+
+
+15.查找子元素
+
+$(this).children().css  原生对象的children方法   所有的子元素
+
+$(this).children().eq(1).css    第一个元素
+
+$(this).children(':nth-child(1)').css 第一个孩子           注意（）里写的是选择器   参数是选择器
+
+$(this).find('span').css('background','red');      div下所有的收盘标签  
+
+16.过滤
+查找 -> 通过已知的元素查找未知的元素
+过滤 -> 从一堆元素内过滤出一部分
+
+
+从5个div内过滤出一个.	$('div').eq（2）  这里的第三个div会变红
+
+$('div').first().css              所有div内的第一个       -——————————————》》》》（所有)
+
+$('div').has('span').css         所有div含有span的那个div
+
+$('div').not(':first').css          除了第一个div
+
+$('div').filter(':first').css      是div并且是第一个div     filter(交集选择器) 并且的意思
+
+返回一个jq类数组，元素是return的值。函数内的this是当前匹配的div元素。
+	$('div').map(function(){
+	return $(this).text();
+	})
+17  判断是否有类
+       $('div').classList.add('active')
+	$('div').classList.remove('active')
+	$('div').classList.toggle('active')
+
+$('div').hasClass('active')用于做判断，返回布尔值。true表示有。false表示没有------------------------》》》
+
+但是
+                有active类的div变背景。(不能用hasClass来过滤);
+		$('div').hasClass('active').css('background','red');          hasclass返回的是布尔值 不能用链式操作
+		有active类的div变背景。(应该用filter来过滤);
+		$('div').filter('active').css('background','red');
+
+18.找下标
+
+找下标：
+	集合1.index(集合2);
+		
+	没参数。返回集合1中的第一个元素相对于所有兄弟元素的下标。
+	有参数：
+	参数是选择器 -> 返回集合1中的第一个元素在集合2中的下标
+	参数是对象 -> 返回集合2中的第一个元素在集合1中的下标.
+
+19.绑定事件
+$('#add').on('click',show);  点击事件
+
+$('#add').on('click.abc',show);   jq事件都提供扩展命名，通过在事件后+.扩展名来区分不同的同类事件
+
+('#add').off();  解除所有的事件绑定
+
+('#add').off(‘click’); 解除所有的点击事件绑定
+
+('#add').off(‘click.abc’)解除指定的带abc的事件绑定
+
+20.事件委托
+
+委托比绑定多一个参数。第二个参数是子元素的选择器------》》
+
+$('ul').on('click','li',function(){})      li不能写ul>li 这样表示ul>ul>li  函数里面的this 不指向父元素，而是指向子元素（li）
+
+委托里子元素没事件绑定。所有接触子元素的事件并不能解除委托，应该解除父元素事件
+$('li').off('click');(X)                 $('ul').off('click');
+
+主动触发document的click事件         $(document).trigger('click');
+
+21，  ready事件
+
+js 工作中应该写window.onload。(页面中的所有资源加载完毕触发window.onload).
+
+jq 工作中应该写document.ready.(页面中的所有DOM节点加载完毕触发document.ready)  $(document).ready(function(){})--》$(function(){})
+
+
+22 特效
+$('div').show()显示          $('div').hide();银葬   toggle 显示隐藏（没有的时候加，有的时候除掉）
+
+
+		
+
+特效方法的参数:
+		1:动画持续时间.单位是毫秒.也可以是字符串预设.slow,fast,normal.----》（$('div').toggle(1000) ; $('div').toggle('slow') ）
+		2:动画形式.匀速(linear)或者缓冲(swing,默认值)----》 $('div').toggle(1000,'linear',function(){  alert('动画结束了') });
+	        3:回调函数.当动画结束自动触发.
+	两个概念:       
+		1:动画延迟.delay();          延迟1秒执行,持续2秒  $('div').delay(1000).toggle(2000);
+		2:动画队列.                   链式调用特效方法   $('div').toggle(2000).toggle(2000).toggle(2000);
+        
+	
+
+23  划入划出与淡入淡出
+
+$('div').slideUp();滑出       $('div').slideDown();滑入          $('div').slideToggle();滑入滑出 -------------》》》 【 $('div').stop().slideToggle(); 】阻止（没用）划入画出 
+
+$('div').fadeIn(); 淡入       $('div').fadeOut();淡出            $('div').fadeToggle();淡入淡出
+
+25 自定义特效
+
+           	第一个参数是动画结束之后的自定义样式.（持续1000--》匀速--》动画结束出发自定义样式marginLeft:800}-->然后触发fn）------------->>>
+		$('div').delay(1000).animate({marginLeft:800},1000,'linear',function(){
+			console.log('到800了')
+		}).animate({marginTop:500},1000,'linear');
+
+                以上的写法还可以 分开写
+                   $('div').delay(1000).animate({marginLeft:800},1000,'linear',function(){
+			console.log('到800了')});
+                   $('div').animate({marginTop:500},1000,'linear');
+
+                 链式调用（只要返回this就能.操作）
+
+
+26 停止动画
+
+                   不写参数事件上默认值是两个false     ('div').stop(false,false);
+
+	            第一个参数表示是否停止动画队列       （练市后面的样式不管用）width height（只走晚width这边），但是如果width走完 再点停止也会走height队列
+
+                    第二个参数表示是否立即完成当前动画。 是（不管持续时间），否（停在当前走到的位置）；
+		        
+27 内部插入
+
+               创建节点：$('<div></div>');			
+               创建节点的内容：$oDiv.text('hahahah');
+               插入节点： 把创建的节点插入body最后。 $('body').append($oDiv);
+		
+		写法一：let $oDiv = $('<div id="wrap">hahahah</div>');
+			$('body').append($oDiv);
+			
+		写法2：	$('body').append('<div id="wrap">hahahah</div>');
+			
+		如果操作一个已经存在的元素，则实现剪切操作:
+			$('div').append($('p'));
+		
+			$('p').appendTo($('div'));
+
+28 外部插入
+
+					
+                //新元素插入到指定元素之前
+		//$('<li>我是新来的</li>').insertBefore($('li:first'));
+		
+		//新元素插入到指定元素之后
+		//$('<li>我是新来的</li>').insertAfter($('li:first'));
+		
+		//指定元素在前，新元素在后。
+		//$('li:first').before('<li>我是新来的</li>');    少了insert
+		
+		//指定元素在前，新元素在后。                       少了insert
+		//$('li:first').after('<li>我是新来的</li>');    
+		
+		//会动写在前面，就需要加动词。insert，To           总结
+		
+		//插件 -> 自己垃圾不会写代码，找别人的代码来用，别人的代码就叫插件。
+
+
+29 插件不会
+
+
+30 jq循环
+
+$('div').each(function(i,item){
+	//this指向当前的标签。
+	$(this).text(i+1);
+          item是原生对象
+	$(item).text(i+1);
+	})
+
+jq的写法 
+     $.each($('div'),function(i,item){                $固定的写法    后面括号写要循环的东西 记住i是写在item的前面
+	console.log(item)
+	})
+		
